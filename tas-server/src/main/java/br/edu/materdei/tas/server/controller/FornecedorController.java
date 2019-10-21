@@ -1,7 +1,7 @@
 package br.edu.materdei.tas.server.controller;
 
-import br.edu.materdei.tas.core.entity.GrupoEntity;
-import br.edu.materdei.tas.core.service.GrupoService;
+import br.edu.materdei.tas.compra.entity.FornecedorEntity;
+import br.edu.materdei.tas.compra.service.FornecedorService;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,49 +17,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GrupoController {
+public class FornecedorController {
     
     @Autowired
-    private GrupoService service;
+    private FornecedorService service;
     
-    @GetMapping("grupos")
-    public ResponseEntity<List<GrupoEntity>> findAll() {
-        List<GrupoEntity> grupos = service.findAll();
+    @GetMapping("fornecedores")
+    public ResponseEntity<List<FornecedorEntity>> findAll() {
+        List<FornecedorEntity> fornecedores = service.findAll();
         
-        return new ResponseEntity<List<GrupoEntity>>(grupos, HttpStatus.OK);
+        return new ResponseEntity<List<FornecedorEntity>>(fornecedores, HttpStatus.OK);
     }
     
-    @PostMapping("grupos")
-    public ResponseEntity create(@RequestBody GrupoEntity grupo) {
+    @PostMapping("fornecedores")
+    public ResponseEntity create(@RequestBody FornecedorEntity fornecedor) {
         try {
-            this.service.save(grupo);
-            return ResponseEntity.status(HttpStatus.OK).body(grupo);
+            this.service.save(fornecedor);
+            return ResponseEntity.status(HttpStatus.OK).body(fornecedor);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
     
-    @GetMapping("grupos/{id}")
+    @GetMapping("fornecedores/{id}")
     public ResponseEntity findByID(@PathVariable("id") Integer id) {
 
-        GrupoEntity grupo = this.service.findById(id);
+        FornecedorEntity fornecedor = this.service.findById(id);
         
-        if (grupo != null)
-            return new ResponseEntity(grupo, HttpStatus.OK);
+        if (fornecedor != null)
+            return new ResponseEntity(fornecedor, HttpStatus.OK);
         else 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Record not found.");
     }
     
-    @PutMapping("grupos/{id}")
-    public ResponseEntity update(@PathVariable("id") Integer id, @RequestBody GrupoEntity grupo) {
+    @PutMapping("fornecedores/{id}")
+    public ResponseEntity update(@PathVariable("id") Integer id, @RequestBody FornecedorEntity fornecedor) {
         try {
-            GrupoEntity found = this.service.findById(id);
+            FornecedorEntity found = this.service.findById(id);
             
             if (found != null) {
-                grupo.setId(id);
+                fornecedor.setId(id);
                 
-                this.service.save(grupo);
-                return new ResponseEntity(grupo, HttpStatus.OK);
+                this.service.save(fornecedor);
+                return new ResponseEntity(fornecedor, HttpStatus.OK);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Record not found.");
             }
@@ -69,7 +69,7 @@ public class GrupoController {
         }
     }
     
-    @DeleteMapping("grupos/{id}")
+    @DeleteMapping("fornecedores/{id}")
     public ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
             this.service.delete(id);
