@@ -16,6 +16,14 @@
             <artifactId>tas-venda</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- POA (AOP) -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.10</version>                
+        </dependency>
+            
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
